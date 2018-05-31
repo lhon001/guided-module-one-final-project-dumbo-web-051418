@@ -23,4 +23,5 @@ require_relative '../cli.rb'
 #
 # end
 
-p cli.show_all_passengers_flights("Hart", "Val")
+cli.show_all_passengers_flights("Hart", "Val")
+#cli.show_all_flights

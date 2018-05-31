@@ -20,7 +20,11 @@ class CommandLineInterface
   end
 
   def show_all_flights
-    Flight.all.each do |flight|
+    show_flights(Flight.all)
+  end
+
+  def show_flights(flights)
+    flights.each do |flight|
       puts "|---------------------------------------|"
       puts "| Airline     | #{flight.name}"
       puts "|---------------------------------------|"
@@ -38,7 +42,7 @@ class CommandLineInterface
 
   def show_all_passengers_flights(last_name, first_name)
     my_flights = Passenger.find_by(last_name: last_name, first_name: first_name)
-    my_flights.flights
+    show_flights(my_flights.flights)
   end
 
 
