@@ -8,34 +8,8 @@ Flight.create(name: "American Airlines", departure_time: "16:00", seat: "F9", me
               start_location: "New York", end_location: "Hanoi", flight_number: 783)
 Flight.create(name: "Singapore Air", departure_time: "02:00", seat: "3P", meal: true, zone: "First Class",
                start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Air Canada", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
-# Flight.create(name: "Singapore Air", boarding_time: "02:00", seat: "3P", meal: true, zone: "First Class",
-#               start_location: "New York", end_location: "Shanghai", flight_number: 902)
+
+
 
 # Ticket.create(ticket_num: 29357, passenger_id: 1, flight_id: 2)
 # Ticket.create(ticket_num: 39475, passenger_id: 2, flight_id: 1)

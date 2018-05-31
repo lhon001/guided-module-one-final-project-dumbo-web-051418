@@ -42,9 +42,9 @@ class CommandLineInterface
     puts "Select flight number you would like to cancel"
     flight_num = gets.chomp.to_i
     flight_id_num = find_flight_by_flight_num(flight_num)#returns flight objects id
-    p ticket = Ticket.find_by(flight_id: flight_id_num)
-    p ticket.id
-    p Ticket.destroy(ticket.id)
+    ticket = Ticket.find_by(flight_id: flight_id_num)
+    ticket.id
+    Ticket.destroy(ticket.id)
     puts "Your flight #{flight_num} has been cancelled"
   end
 
@@ -57,12 +57,12 @@ class CommandLineInterface
   def run
     greet
     menu
-    input = gets.chomp.to_i
-    until input == 7
+    input = gets.chomp
+    until input.to_i == 7
       #system("clear")
       option(input)
       menu
-      input = gets.chomp.to_i
+      input = gets.chomp
     end
     puts "Thank You for using Flight Booker! Have a Great Trip!"
   end
@@ -112,7 +112,11 @@ class CommandLineInterface
 
 
   def option(input)
-    case input
+    if input == "Elon Musk"
+      musk_method
+    end
+
+    case input.to_i
     when 1
       puts "Show all flights"
       show_all_flights
@@ -140,7 +144,7 @@ class CommandLineInterface
       puts "Exit"
       #input = false
     else
-      "Please enter one of the avaliable options"
+      puts "Please enter one of the avaliable options"
     end
   end
 
@@ -159,4 +163,12 @@ class CommandLineInterface
     1 + rand(10000 + 1)
   end
 
+  def musk_method
+    mars_flight = Flight.create(name: "SpaceX", departure_time: "Model 3's first", seat: "1", meal: true, zone: "The Only Class",
+                 start_location: "Cape Canaveral, FL", end_location: "Mars", flight_number: 1)
+
+    elon = Passenger.create(first_name: "Elon", last_name: "Musk", passport_num: 1)
+
+    Ticket.create(ticket_num: random_number_generator, passenger_id: elon.id, flight_id: mars_flight.id).print_ticket
+  end
 end
