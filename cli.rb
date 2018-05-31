@@ -164,10 +164,10 @@ class CommandLineInterface
   end
 
   def musk_method
-    mars_flight = Flight.create(name: "SpaceX", departure_time: "Model 3's first", seat: "1", meal: true, zone: "The Only Class",
+    mars_flight = Flight.find_or_create_by(name: "SpaceX", departure_time: "Model 3's first", seat: "1", meal: true, zone: "The Only Class",
                  start_location: "Cape Canaveral, FL", end_location: "Mars", flight_number: 1)
 
-    elon = Passenger.create(first_name: "Elon", last_name: "Musk", passport_num: 1)
+    elon = Passenger.find_or_create_by(first_name: "Elon", last_name: "Musk", passport_num: 1)
 
     Ticket.create(ticket_num: random_number_generator, passenger_id: elon.id, flight_id: mars_flight.id).print_ticket
   end
