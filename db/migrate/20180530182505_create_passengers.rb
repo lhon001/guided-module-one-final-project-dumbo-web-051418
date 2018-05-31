@@ -3,7 +3,7 @@ class CreatePassengers < ActiveRecord::Migration[5.0]
     create_table :passengers do |t|
       t.string :first_name
       t.string :last_name
-      t.integer :age 
+      t.integer :passport_num
     end
   end
 end

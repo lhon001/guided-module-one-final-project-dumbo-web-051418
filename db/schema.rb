@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20180530182604) do
 
   create_table "flights", force: :cascade do |t|
     t.string  "name"
-    t.string  "boarding_time"
+    t.string  "departure_time"
     t.string  "seat"
     t.boolean "meal"
     t.string  "zone"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180530182604) do
   create_table "passengers", force: :cascade do |t|
     t.string  "first_name"
     t.string  "last_name"
-    t.integer "age"
+    t.integer "passport_num"
   end
 
   create_table "tickets", force: :cascade do |t|
