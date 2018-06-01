@@ -6,7 +6,7 @@ class Ticket < ActiveRecord::Base
     puts "|---------------------------------------|"
     puts "|       #{self.flight.name}"
     puts "|---------------------------------------|"
-    puts "| Name        | #{self.passenger.first_name} #{self.passenger.last_name}"
+    puts "| Name        | #{self.passenger.first_name.capitalize} #{self.passenger.last_name.capitalize}"
     puts "|---------------------------------------|"
     puts "| Depart Time | #{self.flight.departure_time}"
     puts "|---------------------------------------|"

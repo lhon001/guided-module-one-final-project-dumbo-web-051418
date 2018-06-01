@@ -4,9 +4,9 @@
 
     def pretty_print
       puts "|---------------------------------------|"
-      puts "| First Name    | #{self.first_name}"
+      puts "| First Name    | #{self.first_name.capitalize}"
       puts "|---------------------------------------|"
-      puts "| Last Name     | #{self.last_name}"
+      puts "| Last Name     | #{self.last_name.capitalize}"
       puts "|---------------------------------------|"
       puts "| Passport Num  | #{self.passport_num}"
       puts "|---------------------------------------|"

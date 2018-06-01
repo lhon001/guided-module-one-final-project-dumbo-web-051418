@@ -1,7 +1,6 @@
 require 'pry'
 class CommandLineInterface
   def greet
-    # puts "Hi, Welcome to Flight Booker!"
       banner2 = <<-EOF
         db   d8b   db d88888b db       .o88b.  .d88b.  .88b  d88. d88888b      d888888b  .d88b.
         88   I8I   88 88'     88      d8P  Y8 .8P  Y8. 88'YbdP`88 88'          `~~88~~' .8P  Y8.
@@ -22,7 +21,6 @@ class CommandLineInterface
   end
 
   def menu
-    puts ""
     puts ""
     puts "Menu Option"
     puts "1. Show All Flights"
@@ -47,23 +45,26 @@ class CommandLineInterface
 
   # Creates a Ticket object
   def book_a_flight(user)
-    puts "Please select a Flight Number"
-    input = gets.chomp.to_i
+    puts "Please enter a Flight Number"
+    input = get_input.to_i
+    if input == 1
+      puts ""
+      puts "Sorry, this flight is only available to Elon Musk and only after we all get our Model 3's."
+      puts "Also, we do not have the capability to go to Mars...yet..."
+      puts ""
+      return
+    end
+    return puts "Invalid flight number, please try again" if find_flight_by_flight_num(input) == nil
     flight_id = find_flight_by_flight_num(input)
-    #passenger = create_or_find_a_passenger
-    #binding.pry
     Ticket.create(ticket_num: random_number_generator, passenger_id: user.id, flight_id: flight_id)
+    puts "Your flight has been booked, remember to print your ticket"
   end
 
   def cancel_a_flight(user)
-    puts "Please enter your passport number"
-    # passport_number = gets.chomp
-    # passenger = Passenger.find_by_passport_num(passport_number)
     show_all_passengers_flights(user)
-
     puts "Select flight number you would like to cancel"
-    flight_num = gets.chomp.to_i
-    flight_id_num = find_flight_by_flight_num(flight_num)#returns flight objects id
+    flight_num = get_input.to_i
+    flight_id_num = find_flight_by_flight_num(flight_num)
     ticket = Ticket.find_by(flight_id: flight_id_num)
     ticket.id
     Ticket.destroy(ticket.id)
@@ -71,7 +72,6 @@ class CommandLineInterface
   end
 
   def show_all_passengers_flights(user)
-    #my_flights = Passenger.find_by(passport_num: passport_number)
     show_flights(user.flights)
   end
 
@@ -81,75 +81,66 @@ class CommandLineInterface
     greet
     user = login_kinda
     menu
-    input = gets.chomp
+    input = get_input
     until input.to_i == 7
-      #system("clear")
       option(input, user.reload)
-      #binding.pry
       menu
-      input = gets.chomp
+      input = get_input
     end
     system("clear")
-    exit#puts "Thank You for using Flight Booker! Have a Great Trip!"
+    exit
   end
 
   def option(input, user)
-    # user = login_kinda
-    if input.downcase == "Elon Musk".downcase
+    if input.downcase == "WE GOT OUR MODEL 3s!!!".downcase
       musk_method
     end
 
     case input.to_i
     when 1
-      puts "Show all flights"
+      puts "Available Flights"
       show_all_flights
     when 2
-      puts "Book a flight"
+      puts "Booking Flight"
       book_a_flight(user)
-      puts "Your flight has been booked, remember to print your ticket"
-      #sleep(1)
     when 3
-      # puts "Please Enter Passport Number"
-      # passport_number = gets.chomp
-      # puts "Passport Number not Found" if Passenger.find_by_passport_num(passport_number) == nil
-      # return
       show_all_passengers_flights(user)
     when 4
       puts "All Passengers Information"
       show_all_passenger
     when 5
-      puts "Cancel a flight"
+      puts "Cancel a Flight"
       cancel_a_flight(user)
     when 6
-      puts "Print a ticket"
+      puts "Print a Ticket"
       show_all_passengers_flights(user)
       puts "Please enter your flight number"
-      flight_num = gets.chomp
-      find_ticket(flight_num).print_ticket
+      flight_num = get_input
+      find_ticket(user).print_ticket
     when 7
-      puts "Exit"
-      #input = false
     else
       puts "Please enter one of the avaliable options"
     end
   end
 
-####
 # Helper methods
-###
   # takes a flight num as an argument and return the flight id
   def find_flight_by_flight_num(flight_num)
-     flight = Flight.find_by(flight_number: flight_num)
-     flight.id
+    if !Flight.find_by(flight_number: flight_num)
+      return nil
+    else
+      flight = Flight.find_by(flight_number: flight_num)
+      flight.id
+    end
   end
 
-  def find_ticket(flight_num)
-    Ticket.find_by(flight_id: find_flight_by_flight_num(flight_num))
+  def find_ticket(user)
+    Ticket.find_by(passenger_id: user.id)
   end
 
-  def create_or_find_a_passenger
+  def create_passenger
     new_passenger = get_passenger_info
-    Passenger.find_or_create_by(first_name: new_passenger[0], last_name: new_passenger[1], passport_num: new_passenger.last )
+    Passenger.create(first_name: new_passenger[0].capitalize, last_name: new_passenger[1].capitalize, passport_num: new_passenger.last )
   end
 
   def show_flights(flights)
@@ -175,15 +166,14 @@ class CommandLineInterface
    end
  end
 
-  #Ask the Passenger for their personal info
   def get_passenger_info
     info = []
     puts "Please enter your First Name:"
-    info << gets.chomp
+    info << get_input
     puts "Please enter your Last Name:"
-    info << gets.chomp
+    info << get_input
     puts "Please enter your Passport Number:"
-    info << gets.chomp.to_i
+    info << get_input.to_i
   end
 
   def get_input
@@ -194,10 +184,10 @@ class CommandLineInterface
     puts "Are you a New User? (Y or N)"
     response = get_input
     if response == "y"
-      user = create_or_find_a_passenger
+      user = create_passenger
     else
       puts "Please enter your Passport Number:"
-    user = Passenger.find_by(passport_num: get_input)
+      user = Passenger.find_by(passport_num: get_input)
     end
   end
 
@@ -206,11 +196,14 @@ class CommandLineInterface
   end
 
   def musk_method
-    mars_flight = Flight.find_or_create_by(name: "SpaceX", departure_time: "Model 3's first", seat: "1", meal: true, zone: "The Only Class",
+    mars_flight = Flight.find_or_create_by(name: "SpaceX", departure_time: "ASAP", seat: "1", meal: true, zone: "Not that kind of flight",
                  start_location: "Cape Canaveral, FL", end_location: "Mars", flight_number: 1)
+
     elon = Passenger.find_or_create_by(first_name: "Elon", last_name: "Musk", passport_num: 1)
+
     Ticket.create(ticket_num: random_number_generator, passenger_id: elon.id, flight_id: mars_flight.id).print_ticket
   end
+
   def exit
     banner = <<-EOF
       d888888b db   db  .d8b.  d8b   db db   dD      db    db  .d88b.  db    db      d88888b  .d88b.  d8888b.      db    db .d8888. d888888b d8b   db  d888b
